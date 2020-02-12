@@ -18,12 +18,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class ReadingListController {
     private final ReadingListRepository readingListRepository;
+    private final AmazonProperties amazonProperties;
 
     @RequestMapping(value = "/{reader}", method = RequestMethod.GET)
     public String readersBooks(@PathVariable("reader") final String reader, final Model model) {
         final List<Book> readingList = readingListRepository.findByReader(reader);
         if (readingList != null) {
             model.addAttribute("books", readingList);
+            model.addAttribute("reader", reader);
+            model.addAttribute("amazonID", amazonProperties.getAssociateId());
         }
         return "readingList";
     }

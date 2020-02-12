@@ -1,0 +1,35 @@
+server:
+  port: 8443
+  ssl:
+    key-store: classpath:mykeys.jks
+    key-store-password: letmein
+    key-password: letmein
+
+amazon:
+  associateId: habuma-20
+
+spring:
+  profiles:
+    active: production
+
+logging:
+  level:
+    root: INFO
+
+---
+spring:
+  profiles: development
+logging:
+  level:
+    root: DEBUG
+---
+spring:
+  profiles: production
+logging:
+  level:
+    root: WARN
+
+
+
+
+
