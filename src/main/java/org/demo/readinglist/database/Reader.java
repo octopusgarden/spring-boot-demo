@@ -15,6 +15,7 @@ import lombok.Data;
 @Data
 public class Reader implements UserDetails {
     private static final long serialVersionUID = 1L;
+
     @Id
     private String username;
     private String fullname;
@@ -22,7 +23,7 @@ public class Reader implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("READER"));
+        return Arrays.asList(new SimpleGrantedAuthority("ROLE_READER"));
     }
 
     @Override
