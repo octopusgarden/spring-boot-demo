@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import io.micrometer.core.instrument.Metrics;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -34,6 +35,9 @@ public class ReadingListController {
     public String addToReadingList(@PathVariable("reader") final String reader, final Book book) {
         book.setReader(reader);
         readingListRepository.save(book);
+        Metrics.counter("books.saved").increment();
+        Metrics.gauge("books.last.saved", System.currentTimeMillis());
+
         return "redirect:/readinglist/{reader}";
     }
 }
